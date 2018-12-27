@@ -4,7 +4,9 @@
   "description": "load svg async",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server:svg": "cd ./svgs && hs --cors -p 8087",
+    "server:page": "cd demo && hs -p 8088"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,10 @@
   "bugs": {
     "url": "https://github.com/ShanaMaid/archer-svgs/issues"
   },
-  "homepage": "https://github.com/ShanaMaid/archer-svgs#readme"
+  "homepage": "https://github.com/ShanaMaid/archer-svgs#readme",
+  "devDependencies": {
+    "http-server": "^0.11.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
+  }
 }
