@@ -7,7 +7,8 @@ a.setConfig({
     },
     cc: {
       url: '//raw.githubusercontent.com/ShanaMaid/archer-svgs/master/svgs/music.svg',
-      version: 1
+      version: 1,
+      cache: false,
     },
   }
 });

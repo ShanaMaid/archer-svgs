@@ -2,11 +2,13 @@
   "name": "archer-svgs",
   "version": "0.0.1",
   "description": "load svg async",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server:svg": "cd ./svgs && hs --cors -p 8087",
-    "server:page": "cd demo && hs -p 8088"
+    "build": "tsc --declaration --outDir lib/",
+    "dev": "NODE_ENV=development webpack-dev-server",
+    "site": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
@@ -27,8 +29,25 @@
   },
   "homepage": "https://github.com/ShanaMaid/archer-svgs#readme",
   "devDependencies": {
+    "@types/react-dom": "^16.0.11",
+    "css-hot-loader": "^1.4.3",
+    "css-loader": "^2.1.0",
+    "fork-ts-checker-webpack-plugin": "^0.5.2",
+    "happypack": "^5.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
+    "less-loader": "^4.1.0",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.2",
     "tslint": "^5.12.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "ui-component-loader": "^1.1.6",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.0",
+    "webpack-dev-server": "^3.1.14",
+    "yoshino": "^0.6.8"
   }
 }

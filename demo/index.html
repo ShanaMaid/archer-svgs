@@ -3,17 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>svg 离线化异步加载</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <i id="svg"></i>
+  <div id="root"></div>
 </body>
-<script>
-  fetch('http://localhost:8087/music.svg', { cache: 'force-cache' }).then((r) => {
-    return r.text();
-  }).then((svg) => {
-    document.getElementById('svg').innerHTML = svg;
-  })
-</script>
 </html>

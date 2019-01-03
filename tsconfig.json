@@ -12,6 +12,7 @@
     "strictNullChecks": true,
     "target": "es5",
     "rootDir": "src",
+    "jsx": "react",
     "lib": [
       "es2017",
       "dom"
@@ -23,5 +24,6 @@
   },
   "include": [
     "src",
+    "demo"
   ],
 }

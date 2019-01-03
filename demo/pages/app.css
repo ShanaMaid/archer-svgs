@@ -1,0 +1,45 @@
+html {
+  background: rgb(240, 242, 245);
+}
+
+.body {
+  padding: 20px;
+  width: 800px;
+  margin: 0 auto;
+}
+
+h3 {
+  margin: 10px 0;
+}
+
+.yoshino-button {
+  margin-right: 20px;    
+}
+
+.max-size {
+  display: inline-block;
+  width: 100px;
+}
+
+.confrim {
+  margin-top: 20px;
+}
+
+.svg-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.svg-list-item {
+  width: 100px;
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.svg-list-item:hover {
+  background: #a5d6a7;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+}
