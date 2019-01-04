@@ -2,13 +2,14 @@
   "name": "archer-svgs",
   "version": "0.0.1",
   "description": "load svg async",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "lib/Archer.js",
+  "typings": "lib/Archer.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --declaration --outDir lib/",
     "dev": "NODE_ENV=development webpack-dev-server",
-    "site": "NODE_ENV=production webpack"
+    "site": "NODE_ENV=production webpack",
+    "preversion": "npm run build"
   },
   "repository": {
     "type": "git",
