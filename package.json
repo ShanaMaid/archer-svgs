@@ -51,6 +51,7 @@
     "yoshino": "^0.6.8"
   },
   "dependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "whatwg-fetch": "^3.0.0"
   }
 }

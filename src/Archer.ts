@@ -1,3 +1,4 @@
+import {fetch as fetchPolyfill} from 'whatwg-fetch';
 export interface ISVG {
   [index: string]: {
     version: number | string; // svg图标版本号
@@ -98,7 +99,7 @@ class Archer {
 
   // 下载svg
   fetchSvg = (url: string) => {
-    return fetch(url).then((r) => {
+    return fetchPolyfill(url).then((r: any) => {
       if (r.status === 200) {
         return r.text();
       }
