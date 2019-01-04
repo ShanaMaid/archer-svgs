@@ -17,7 +17,7 @@ const locale = {
   },
   summary: {
     en: 'Total Svg',
-    'zh-CN': 'svg总数',
+    'zh-CN': '可加载svg总数',
   },
   maxSize: {
     en: 'max-size of cache',

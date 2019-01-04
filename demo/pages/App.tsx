@@ -20,7 +20,7 @@ export default class IApp extends React.Component<IAppProps, any> {
     loading: false,
     percent: 0,
     cacheCount: 10,
-    loadingCount: 500,
+    loadingCount: 15,
     maxSize: 1024,
     singleSvg: iconName[0],
     language: 'en'  as LANGUAGE,
@@ -74,6 +74,7 @@ export default class IApp extends React.Component<IAppProps, any> {
       language,
      } = this.state;
     const caches = Object.keys(Archer.getCache());
+    const svgs = Object.keys(this.cfg.svgs);
     return (
       <div className="body">
         <Select
@@ -160,7 +161,7 @@ export default class IApp extends React.Component<IAppProps, any> {
               onChange={(v) => this.setState({singleSvg: v})}
             >
               {
-                iconName.map((svg, i) => (
+                svgs.map((svg, i) => (
                   <Select.Option value={svg} key={i}>{svg}</Select.Option>
                 ))
               }
