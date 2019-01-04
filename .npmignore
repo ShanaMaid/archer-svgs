@@ -1,0 +1,11 @@
+demo/
+node_modules/
+docs/
+src/
+.DS_Store
+.git
+tsconfig.json
+tslint.json
+webpack.config.js
+.gitignore
+README-cn.md
