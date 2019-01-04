@@ -25,7 +25,7 @@ module.exports = {
   output: {
     filename: 'js/build.js',
     path: path.resolve(__dirname, './docs'),
-    publicPath: './',
+    publicPath: isProd ? './' : '/',
     chunkFilename: 'js/[name].js',
   },
   module: {
@@ -84,7 +84,7 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
-    contentBase: path.join(__dirname, "docs"),
+    contentBase: path.join(__dirname, "./docs"),
     compress: false,
     port: 9001,
     hot: true,

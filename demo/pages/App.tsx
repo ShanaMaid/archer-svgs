@@ -3,6 +3,7 @@ import iconName from '../utils/icon';
 import Archer, { IConfig } from '../../src/Archer';
 import { Button, Input, Progress, Grid, Select } from 'yoshino';
 import Icon from '../components/Icon';
+import Locale, { languages, LANGUAGE } from '../utils/locale';
 import './app.css';
 export interface IAppProps {
 }
@@ -22,6 +23,7 @@ export default class IApp extends React.Component<IAppProps, any> {
     loadingCount: 500,
     maxSize: 1024,
     singleSvg: iconName[0],
+    language: 'en'  as LANGUAGE,
   };
 
   componentWillMount() {
@@ -68,12 +70,27 @@ export default class IApp extends React.Component<IAppProps, any> {
   public render() {
     const {
       loading, percent, cacheCount,
-      loadingCount, maxSize, singleSvg
+      loadingCount, maxSize, singleSvg,
+      language,
      } = this.state;
     const caches = Object.keys(Archer.getCache());
     return (
       <div className="body">
-        <h3>操作</h3>
+        <Select
+          value={language}
+          onChange={(v) => this.setState({language: v})}
+        >
+          {
+            languages.map((l, i) => {
+              return (
+                <Select.Option value={l.value} key={i}>
+                  {l.text}
+                </Select.Option>
+              )
+            })
+          }
+        </Select>
+        <h3>{Locale.action[language]}</h3>
         <Button
           type="primary"
           size="large"
@@ -83,15 +100,15 @@ export default class IApp extends React.Component<IAppProps, any> {
             Archer.startPreFetch();
           }}
         >
-            开始预加载
+          {Locale.start[language]}
         </Button>
-        <Button type="primary" size="large" onClick={Archer.clearSvgCache}>清空本地cache</Button>
-        <h3>配置</h3>
-        <p>svg总数: {iconName.length}</p>
+        <Button type="primary" size="large" onClick={Archer.clearSvgCache}>{Locale.clear[language]}</Button>
+        <h3>{Locale.config[language]}</h3>
+        <p>{Locale.summary[language]}: {iconName.length}</p>
         <Row>
-          <Col span={8}>
+          <Col span={10}>
             <p>
-              <span>最大缓存空间:</span>
+              <span>{Locale.maxSize[language]}:</span>
               <Input
                 className="max-size" 
                 value={maxSize}
@@ -102,9 +119,9 @@ export default class IApp extends React.Component<IAppProps, any> {
               <span>kb</span>
             </p>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <p>
-              <span>svg加载个数:</span>
+              <span>{Locale.loadingCount[language]}:</span>
               <Input
                 className="max-size" 
                 value={loadingCount}
@@ -114,9 +131,11 @@ export default class IApp extends React.Component<IAppProps, any> {
               />
             </p>
           </Col>
-          <Col span={8}>
+        </Row>
+        <Row>
+          <Col span={10}>
             <p>
-              <span>最大缓存svg个数:</span>
+              <span>{Locale.cacheCount[language]}:</span>
               <Input
                 className="max-size" 
                 value={cacheCount}
@@ -126,15 +145,13 @@ export default class IApp extends React.Component<IAppProps, any> {
               />
             </p>
           </Col>
-        </Row>
-        <Row>
           <Col span={8}>
-            <Button type="primary" size="large" onClick={this.apply}>应用</Button>
+            <Button type="primary" size="large" onClick={this.apply}>{Locale.apply[language]}</Button>
           </Col>
         </Row>
-        <h3>下载进度</h3>
+        <h3>{Locale.downloadProgress[language]}</h3>
         <Progress percent={percent} diameter={90}/>
-        <h3>下载单个svg</h3>
+        <h3>{Locale.downloadSingle[language]}</h3>
         <Row>
           <Col span={8}>
             <Select
@@ -153,7 +170,7 @@ export default class IApp extends React.Component<IAppProps, any> {
             <Icon type={singleSvg}/>
           </Col>
         </Row>
-        <h3>当前已缓存svg列表 - {caches.length}</h3>
+        <h3>{Locale.currentList[language]} - {caches.length}</h3>
         <div className="svg-list">
           {
             caches.map((svg, i) => {
