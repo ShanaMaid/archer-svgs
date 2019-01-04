@@ -24,6 +24,5 @@
   },
   "include": [
     "src",
-    "demo"
   ],
 }

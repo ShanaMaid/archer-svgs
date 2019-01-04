@@ -5,6 +5,16 @@ const HappyPack = require('happypack');
 const webpack = require('webpack');
 const isProd = process.env.NODE_ENV !== 'development';
 const devtool = isProd ? {} : {devtool: 'source-map'};
+const chunk = isProd ? {
+  optimization: {
+    splitChunks:  {
+      chunks: 'all',
+      minChunks: 3,
+      name: 'common',
+    },
+    minimize: true,
+  },
+} : {};
 
 module.exports = {
   mode: 'development',
@@ -39,6 +49,7 @@ module.exports = {
       },
     ]
   },
+  ...chunk,
   ...devtool,
   plugins: [
     new HtmlWebpackPlugin({
