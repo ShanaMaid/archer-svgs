@@ -24,8 +24,8 @@ module.exports = {
   entry: path.resolve('./demo/entry.tsx'),
   output: {
     filename: 'js/build.js',
-    path: path.resolve(__dirname, './build'),
-    publicPath: '/',
+    path: path.resolve(__dirname, './docs'),
+    publicPath: './',
     chunkFilename: 'js/[name].js',
   },
   module: {
@@ -84,7 +84,7 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
-    contentBase: path.join(__dirname, "build"),
+    contentBase: path.join(__dirname, "docs"),
     compress: false,
     port: 9001,
     hot: true,
