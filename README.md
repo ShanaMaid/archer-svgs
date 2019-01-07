@@ -123,7 +123,7 @@ Archer.startPrefetch();
 ```
 
 #### downloadSvg()
-`params` is `key` of `config.svgs`, this func will return svg content!
+`params` is `key` of `config.svgs`, this func will return svg content!
 ```js
 import Archer from 'archer-svgs';
 
