@@ -23,7 +23,7 @@ module.exports = {
   },
   entry: path.resolve('./demo/entry.tsx'),
   output: {
-    filename: 'js/build.js',
+    filename: 'js/build-[hash].js',
     path: path.resolve(__dirname, './docs'),
     publicPath: isProd ? './' : '/',
     chunkFilename: 'js/[name].js',
