@@ -24,6 +24,9 @@ export default class IApp extends React.Component<IAppProps, any> {
     maxSize: 1024,
     singleSvg: iconName[0],
     language: 'en'  as LANGUAGE,
+    svg: '',
+    svgUrl: 'https://raw.githubusercontent.com/ShanaMaid/archer-svgs/master/demo/static/music.svg',
+    downloadLoading: false,
   };
 
   componentWillMount() {
@@ -44,7 +47,7 @@ export default class IApp extends React.Component<IAppProps, any> {
         percent,
       });
     }, 100);
-
+    this.downloadSvgByUrl();
   }
 
   apply = () => {
@@ -67,11 +70,29 @@ export default class IApp extends React.Component<IAppProps, any> {
     Archer.setMaxSize(maxSize)
   }
 
+  downloadSvgByUrl = async () => {
+    const {
+      downloadLoading,
+      svgUrl
+    } = this.state;
+    if (downloadLoading) {
+      return;
+    }
+    this.setState({
+      downloadLoading: true,
+    });
+    const svg = await Archer.fetchSvg(svgUrl);
+    this.setState({
+      svg,
+      downloadLoading: false,
+    });
+  }
+
   public render() {
     const {
       loading, percent, cacheCount,
       loadingCount, maxSize, singleSvg,
-      language,
+      language, svgUrl, svg, downloadLoading,
      } = this.state;
     const caches = Object.keys(Archer.getCache());
     const svgs = Object.keys(this.cfg.svgs);
@@ -170,6 +191,26 @@ export default class IApp extends React.Component<IAppProps, any> {
           <Col span={4}>
             <Icon type={singleSvg}/>
           </Col>
+        </Row>
+        <h3>{Locale.downloadSvgbyUrl[language]}</h3>
+        <Row>
+          <Col span={20}>
+            <Input
+              value={svgUrl}
+              onChange={(v) => this.setState({svgUrl: v})}
+            />
+          </Col>
+          <Col span={3}>
+            <Button
+              type="primary"
+              size="large"
+              onClick={this.downloadSvgByUrl}
+              loading={downloadLoading}
+            >
+              {Locale.apply[language]}
+            </Button>
+          </Col>
+          <i dangerouslySetInnerHTML={{__html: svg}}/>
         </Row>
         <h3>{Locale.currentList[language]} - {caches.length}</h3>
         <div className="svg-list">

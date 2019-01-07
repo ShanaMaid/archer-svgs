@@ -46,6 +46,10 @@ const locale = {
   currentList: {
     en: 'Current List Of Caching Svg',
     'zh-CN': '当前已经缓存svg列表',
+  },
+  downloadSvgbyUrl: {
+    en: 'Download svg by url',
+    'zh-CN': '根据url下载svg',
   }
 }
 
