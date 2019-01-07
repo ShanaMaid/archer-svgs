@@ -13,7 +13,7 @@
 
 [English](./README.md) | 🇨🇳简体中文
 
-> 哇哦!无限的svgs!你可以使用`archer-svgs`去异步加载svg并将它缓存在`localStorage`里，当你再次使用已经加载过的svg时将不需要再发起http请求。将svgs从你的js-bunlde里移除，并且永远减小js-bunlde的体积
+> 哇哦!无限的svgs!你可以使用`archer-svgs`去异步加载svg并将它缓存在`localStorage`里，当你再次使用已经加载过的svg时将不需要再发起http请求。将svgs从你的js-bunlde里移除，并且永远减小js-bunlde的体积。（例子: 不需要因为`1kb`的svg更新而重新加载整个`100kb`的svg模块。）
 
 ![](./demo/static/demo.gif)
 

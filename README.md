@@ -13,7 +13,7 @@
 
 English | [🇨🇳简体中文](./README-cn.md)
 
-> wow, infinite svgs!You can use `archer-svgs` to load svg async and cache it in `localStorage`, when you reuse svg without http request!Remove svgs from your js-bunilde and Thin your js-bundle forever!
+> wow, infinite svgs!You can use `archer-svgs` to load svg async and cache it in `localStorage`, when you reuse svg without http request!Remove svgs from your js-bunilde and Thin your js-bundle forever!(eg: Dont reload `100kb` svg bundle only for `1kb` svg update!)
 
 ![](./demo/static/demo.gif)
 
