@@ -6,10 +6,10 @@
   "typings": "lib/Archer.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --declaration --outDir lib/",
+    "build": "rm -rf ./lib && tsc --declaration --outDir lib/ && webpack --config ./cfg/umd.js",
     "dev": "NODE_ENV=development webpack-dev-server",
-    "site": "NODE_ENV=production webpack",
-    "preversion": "npm run build"
+    "site": "rm -rf ./docs && NODE_ENV=production webpack",
+    "preversion": ""
   },
   "repository": {
     "type": "git",

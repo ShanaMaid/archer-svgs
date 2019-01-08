@@ -177,4 +177,3 @@ class Archer {
 }
 
 export default new Archer();
-

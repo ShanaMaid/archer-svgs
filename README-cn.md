@@ -24,6 +24,7 @@
 * [安装](#安装)
   * [npm](#npm)
   * [yarn](#yarn)
+  * [script](#script)
 * [特性](#特性)
 * [设计思路](#设计思路)
   * [配置初始化](#配置初始化)
@@ -52,6 +53,11 @@ npm install archer-svgs
 #### yarn
 ```bash
 yarn add archer-svgs
+```
+
+#### script
+```html
+<script src="//unpkg.com/archer-svgs/lib/Archer.min.js"></script>
 ```
 
 ### 特性

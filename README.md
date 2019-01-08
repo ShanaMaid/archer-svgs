@@ -24,6 +24,7 @@ English | [🇨🇳简体中文](./README-cn.md)
 * [Install](#install)
   * [npm](#npm)
   * [yarn](#yarn)
+  * [script](#script)
 * [Feature](#feature)
 * [How to design?](#how-to-design)
   * [Init config](#init-config)
@@ -52,6 +53,11 @@ npm install archer-svgs
 #### yarn
 ```bash
 yarn add archer-svgs
+```
+
+#### script
+```js
+<script src="//unpkg.com/archer-svgs/lib/Archer.min.js"></script>
 ```
 
 ### Feature
