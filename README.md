@@ -80,6 +80,14 @@ yarn add archer-svgs
 ![localStorage](./demo/static/ls.png)
 ![XMLHttpRequest](./demo/static/xhr.png)
 
+You will also need a Promise polyfill for [older browsers](http://caniuse.com/#feat=promises).
+We recommend [taylorhakes/promise-polyfill](https://github.com/taylorhakes/promise-polyfill)
+for its small size and Promises/A+ compatibility.Yo alse load it by `<script>`
+
+```js
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+```
+
 ### Method
 #### init()
 You must `init()` before using other `Archer` method!

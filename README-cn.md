@@ -80,6 +80,14 @@ yarn add archer-svgs
 ![localStorage](./demo/static/ls.png)
 ![XMLHttpRequest](./demo/static/xhr.png)
 
+如果需要在[低版本浏览器](http://caniuse.com/#feat=promises)使用，需要引入`promises poly-fill`，
+推荐使用[taylorhakes/promise-polyfill](https://github.com/taylorhakes/promise-polyfill)，体积小并且兼容性很好。
+你也可以使用`<script>`去加载它。
+
+```js
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+```
+
 ### 方法
 #### init()
 必须先调用 `init()`，然后才能使用其它的`Archer`方法!
