@@ -9,7 +9,7 @@
     "build": "rm -rf ./lib && tsc --declaration --outDir lib/ && webpack --config ./cfg/umd.js",
     "dev": "NODE_ENV=development webpack-dev-server",
     "site": "rm -rf ./docs && NODE_ENV=production webpack",
-    "preversion": ""
+    "preversion": "npm run build"
   },
   "repository": {
     "type": "git",

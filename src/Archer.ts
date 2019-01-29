@@ -26,6 +26,9 @@ class Archer {
   isPrefetch = false;
   prefetchQueue: string[] = []; // svg预加载队列
 
+  // 内存中存储map，避免频繁操作localStorage卡死
+  svgCache: ILocalCache = {}; 
+
   // 最大svg 1024kb
   maxSize = 1024;
 
@@ -70,6 +73,7 @@ class Archer {
       this.setCfgToStorage(cfg);
     }
     this.config = cfg;
+    this.svgCache = this.getCache();
   };
 
   // 开启预下载  一般配置在onload后
@@ -124,7 +128,6 @@ class Archer {
     const localCfg = this.getCfgFromStorage();
     const localSvg = localCfg.svgs[name];
     const cfgSvg = this.config.svgs[name];
-    const cache = this.getCache();
 
     if (!cfgSvg) {
       this.isPrefetch = false;
@@ -133,9 +136,9 @@ class Archer {
 
     // svg的信息和地址均匹配
     if (localSvg.url === cfgSvg.url && localSvg.version === cfgSvg.version) {
-      if (cache[name] && cfgSvg.cache !== false) {
+      if (this.svgCache[name] && cfgSvg.cache !== false) {
         // localstorage里有缓存，直接走缓存
-        return cache[name];
+        return this.svgCache[name];
       } else {
         // 没有缓存，继续往下走，重新下载
       }
@@ -148,13 +151,12 @@ class Archer {
     const url = cfgSvg.url;
     const svg = await this.fetchSvg(url);
     // 重新读取cache的原因是await后localstorage中的cache可能已经发生了变化
-    const newCache = this.getCache();
-    const svgsName = Object.keys(newCache);
-    const size = (stringify(newCache).length + svg.length) / 1024 ;
+    const svgsName = Object.keys(this.svgCache);
+    const size = (stringify(this.svgCache).length + svg.length) / 1024 ;
     // svg图标没有禁用缓存且缓存图标数量没有达到上限才进行缓存
     if (cfgSvg.cache !== false && (size < this.maxSize || svgsName.indexOf(name) !== -1) && svgsName.length < this.max) {
-      newCache[name] = svg;
-      this.setCache(newCache);
+      this.svgCache[name] = svg;
+      this.setCache(this.svgCache);
     }
    
     return svg;
