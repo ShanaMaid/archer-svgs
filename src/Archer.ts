@@ -37,6 +37,9 @@ class Archer {
 
   // 配置
   config: IConfig;
+
+  // 内存中存储localCfg，避免频繁操作localStorage卡死
+  localCfg: IConfig;
   
   getCache: () => ILocalCache = () => {
     const v = localStorage.getItem(this.LOCAL_STORAGE_CAHCHE_KEY);
@@ -71,8 +74,12 @@ class Archer {
     // 对localStorage中的config进行初始化
     if (!localCfg) {
       this.setCfgToStorage(cfg);
+      this.localCfg = cfg;
+    } else {
+      this.localCfg = parse(localCfg);
     }
     this.config = cfg;
+    
     this.svgCache = this.getCache();
   };
 
@@ -125,7 +132,7 @@ class Archer {
 
   // 下载单个svg - 会走localStorage缓存
   downloadSvg = async (name: string) => {
-    const localCfg = this.getCfgFromStorage();
+    const localCfg = this.localCfg;
     const localSvg = localCfg.svgs[name];
     const cfgSvg = this.config.svgs[name];
 
