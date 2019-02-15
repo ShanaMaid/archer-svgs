@@ -44,6 +44,7 @@ module.exports = {
         use: ['happypack/loader?id=css'],
         include: [
           path.resolve('demo'),
+          path.resolve('src'),
           path.resolve(__dirname, 'node_modules/yoshino'),
         ],
       },

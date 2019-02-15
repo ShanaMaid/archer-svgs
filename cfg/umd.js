@@ -19,7 +19,7 @@ module.exports = {
         test: /\.(tsx|ts)$/,
         use: ['ts-loader'],
         include: [
-          path.resolve(__dirname, '../src/Archer.ts'),
+          path.resolve(__dirname, '../src/'),
         ],
       }
     ]

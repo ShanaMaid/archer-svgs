@@ -1,229 +1,126 @@
 import * as React from 'react';
 import iconName from '../utils/icon';
-import Archer, { IConfig } from '../../src/Archer';
-import { Button, Input, Progress, Grid, Select } from 'yoshino';
-import Icon from '../components/Icon';
-import Locale, { languages, LANGUAGE } from '../utils/locale';
+import Icon from '../../src/react/';
+import { Input, Button, Progress, Select } from 'yoshino';
 import './app.css';
 export interface IAppProps {
 }
 
 const svgTarget = 'https://unpkg.com/ionicons@4.4.2/dist/ionicons/svg/';
 
-const { Row, Col } = Grid;
-
-
+const config: {[index: string]: string} = {};
+iconName.forEach((i) => {
+  config[i] = `${svgTarget}${i}.svg`;
+})
+Icon.archer.set(config);
 export default class IApp extends React.Component<IAppProps, any> {
-  cfg: IConfig = { svgs: {}};
+  getPercent = () => Math.round(((iconName.length - Icon.archer.prefetchQueue.length) / iconName.length) * 100);
 
   state = {
-    loading: false,
-    percent: 0,
-    cacheCount: 10,
-    loadingCount: 15,
-    maxSize: 1024,
-    singleSvg: iconName[0],
-    language: 'en'  as LANGUAGE,
+    url: 'https://raw.githubusercontent.com/ShanaMaid/archer-svgs/master/demo/static/music.svg',
     svg: '',
-    svgUrl: 'https://raw.githubusercontent.com/ShanaMaid/archer-svgs/master/demo/static/music.svg',
-    downloadLoading: false,
+    percent: this.getPercent(),
+    prefetchLoading: false,
+    type: iconName[0],
+    show: false,
   };
 
-  componentWillMount() {
-    this.apply();
-  }
 
   componentDidMount() {
-    // 做一些检测工作
-    setInterval(() => {
-      const { loading } = this.state;
-      if (loading !== Archer.isPrefetch) {
-        this.setState({loading: !loading});
-      }
-      const len = Archer.prefetchQueue.length;
-      const count = Object.keys(this.cfg.svgs).length;
-      const percent = Math.ceil((count - len) / count * 100);
-      this.setState({
-        percent,
-      });
-    }, 100);
-    this.downloadSvgByUrl();
+    this.download();
   }
 
-  apply = () => {
-    const cfg: IConfig = { svgs: {}};
-    const { cacheCount, loadingCount, maxSize } = this.state;
-    iconName.forEach((item, index) => {
-      if (index >= loadingCount) {
-        return;
-      }
-      cfg.svgs[item] =  {
-        version: 1,
-        url: `${svgTarget}${item}.svg`,
-      }
-    });
-
-    this.cfg = cfg;
-
-    Archer.init(cfg);
-    Archer.setMax(cacheCount);
-    Archer.setMaxSize(maxSize)
+  download = async () => {
+    const svg = await Icon.archer.fetchSvg(this.state.url);
+    this.setState({svg});
   }
 
-  downloadSvgByUrl = async () => {
-    const {
-      downloadLoading,
-      svgUrl
-    } = this.state;
-    if (downloadLoading) {
+  prefetch = async () => {
+    if (this.state.prefetchLoading) {
       return;
     }
     this.setState({
-      downloadLoading: true,
+      prefetchLoading: true,
     });
-    const svg = await Archer.fetchSvg(svgUrl);
+    const handle = setInterval(() => {
+      this.setState({percent: this.getPercent()});
+      this.forceUpdate();
+    }, 500);
+    await Icon.archer.startPreFetch();
+    clearInterval(handle);
     this.setState({
-      svg,
-      downloadLoading: false,
+      prefetchLoading: false,
+      percent: this.getPercent(),
     });
   }
 
+
   public render() {
     const {
-      loading, percent, cacheCount,
-      loadingCount, maxSize, singleSvg,
-      language, svgUrl, svg, downloadLoading,
-     } = this.state;
-    const caches = Object.keys(Archer.getCache());
-    const svgs = Object.keys(this.cfg.svgs);
+      url, percent, prefetchLoading,
+      type, svg, show,
+    } = this.state;
     return (
       <div className="body">
-        <Select
-          value={language}
-          onChange={(v) => this.setState({language: v})}
-        >
-          {
-            languages.map((l, i) => {
-              return (
-                <Select.Option value={l.value} key={i}>
-                  {l.text}
-                </Select.Option>
-              )
-            })
-          }
-        </Select>
-        <h3>{Locale.action[language]}</h3>
-        <Button
-          type="primary"
-          size="large"
-          loading={loading}
-          onClick={() => {
-            this.apply();
-            Archer.startPreFetch();
-          }}
-        >
-          {Locale.start[language]}
-        </Button>
-        <Button type="primary" size="large" onClick={Archer.clearSvgCache}>{Locale.clear[language]}</Button>
-        <h3>{Locale.config[language]}</h3>
-        <p>{Locale.summary[language]}: {iconName.length}</p>
-        <Row>
-          <Col span={10}>
-            <p>
-              <span>{Locale.maxSize[language]}:</span>
-              <Input
-                className="max-size" 
-                value={maxSize}
-                onChange={(v) => {
-                  this.setState({maxSize: Number(v)})
-                }}
-              />
-              <span>kb</span>
-            </p>
-          </Col>
-          <Col span={10}>
-            <p>
-              <span>{Locale.loadingCount[language]}:</span>
-              <Input
-                className="max-size" 
-                value={loadingCount}
-                onChange={(v) => {
-                  this.setState({loadingCount: Number(v)})
-                }}
-              />
-            </p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={10}>
-            <p>
-              <span>{Locale.cacheCount[language]}:</span>
-              <Input
-                className="max-size" 
-                value={cacheCount}
-                onChange={(v) => {
-                  this.setState({cacheCount: Number(v)})
-                }}
-              />
-            </p>
-          </Col>
-          <Col span={8}>
-            <Button type="primary" size="large" onClick={this.apply}>{Locale.apply[language]}</Button>
-          </Col>
-        </Row>
-        <h3>{Locale.downloadProgress[language]}</h3>
-        <Progress percent={percent} diameter={90}/>
-        <h3>{Locale.downloadSingle[language]}</h3>
-        <Row>
-          <Col span={8}>
-            <Select
-              style={{width: 200}}
-              value={singleSvg}
-              onChange={(v) => this.setState({singleSvg: v})}
-            >
+        <div className="module">
+          <h3>通过url下载单个svg图标</h3>
+          <div className="single-icon">
+            <Input value={url} onChange={(v) => this.setState({url: v})}/>
+            <Button type="primary" onClick={this.download}>下载</Button>
+            <div>
+              <Icon svg={svg}/>
+            </div>
+          </div>
+        </div>
+        <div className="module">
+          <h3>通过iconName下载单个svg图标</h3>
+          <div className="single-icon">
+            <Select value={type} onChange={(v) => this.setState({type: v})}>
               {
-                svgs.map((svg, i) => (
-                  <Select.Option value={svg} key={i}>{svg}</Select.Option>
-                ))
+                iconName.map((icon, key) => {
+                  return (
+                    <Select.Option
+                      value={icon}
+                      key={key}
+                    >
+                      {icon}
+                    </Select.Option>
+                  )
+                })
               }
             </Select>
-          </Col>
-          <Col span={4}>
-            <Icon type={singleSvg}/>
-          </Col>
-        </Row>
-        <h3>{Locale.downloadSvgbyUrl[language]}</h3>
-        <Row>
-          <Col span={20}>
-            <Input
-              value={svgUrl}
-              onChange={(v) => this.setState({svgUrl: v})}
-            />
-          </Col>
-          <Col span={3}>
-            <Button
-              type="primary"
-              size="large"
-              onClick={this.downloadSvgByUrl}
-              loading={downloadLoading}
-            >
-              {Locale.apply[language]}
-            </Button>
-          </Col>
-          <i dangerouslySetInnerHTML={{__html: svg}}/>
-        </Row>
-        <h3>{Locale.currentList[language]} - {caches.length}</h3>
-        <div className="svg-list">
-          {
-            caches.map((svg, i) => {
-              return (
-                <div key={i} className="svg-list-item">
-                  <Icon type={svg}/>
-                  <p>{svg}</p>
+            <Icon type={type}/>
+          </div>
+        </div>
+        <div className="module">
+          <h3>预加载(共{iconName.length + 1}个图标)</h3>
+          <div className="prefetch">
+            <Button type="primary" onClick={this.prefetch} loading={prefetchLoading}>开启预加载</Button>
+            <div>
+              <Progress percent={percent}/>
+            </div>
+          </div>
+        </div>
+        <div className="module">
+          <h3>展示所有图标</h3>
+          <div className="prefetch">
+            {
+              show ? (
+                <div>
+                  {
+                    iconName.map((icon, key) => {
+                      return (
+                        <Icon type={icon} key={key}/>
+                      );
+                    })
+                  }
                 </div>
+              ) : (
+                <div className="notice" onClick={() => this.setState({show: true})}>点击展示所有图标</div>
               )
-            })
-          }
+            }
+              
+          </div>
         </div>
       </div>
     );

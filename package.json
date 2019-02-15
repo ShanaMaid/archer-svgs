@@ -49,10 +49,9 @@
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
     "webpack-dev-server": "^3.1.14",
-    "yoshino": "^0.6.8"
+    "yoshino": "^0.8.22"
   },
   "dependencies": {
-    "tslib": "^1.9.3",
-    "whatwg-fetch": "^3.0.0"
+    "tslib": "^1.9.3"
   }
 }
