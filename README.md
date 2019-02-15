@@ -32,7 +32,7 @@
   * [fetchSvg( )](#fetchsvg)
 * [注意](#注意)
 * [用法](#用法)
-  * [React](#React)
+  * [React](#react)
   * Vue
 * [谁在用？](#谁在用)
 * [贡献者](#贡献者)
