@@ -1,6 +1,6 @@
 {
   "name": "archer-svgs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "load svg async",
   "main": "lib/Archer.js",
   "typings": "lib/Archer.d.ts",
