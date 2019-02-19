@@ -14,6 +14,9 @@ class Archer {
   // 内存缓存svg
   svgCaches: {[index: string]: string} = {};
 
+  // 并发下载数
+  private threadNum = 2;
+
   set = (config: IConfig) => {
     this.config = config;
   }
@@ -64,8 +67,8 @@ class Archer {
       this.isPrefetch = false;
       return;
     }
-    await this.downloadSvg(this.prefetchQueue[0]);
-    this.prefetchQueue.shift();
+    const temp = this.prefetchQueue.splice(0, this.threadNum);
+    await Promise.all(temp.map(this.downloadSvg));
     await this.popQueue();
     return true;
   }
@@ -77,6 +80,11 @@ class Archer {
       throw(new Error(`svg ${name} does not exist`));
     }
     return await this.fetchSvg(url);
+  }
+
+  // 修改并发下载数
+  setThreadNum = (num: number) => {
+    this.threadNum = num;
   }
 }
 
