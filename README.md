@@ -102,6 +102,22 @@ export interface IConfig {
 
 ```
 
+#### add()
+添加配置
+```jsx
+archer.set({
+  'ios-airplane': 'https://unpkg.com/ionicons@4.4.2/dist/ionicons/svg/ios-airplane.svg',
+})
+archer.add({
+  'md-airplane': 'https://unpkg.com/ionicons@4.4.2/dist/ionicons/svg/md-airplane.svg',
+})
+/**
+ * config = {
+ *  'ios-airplane': 'https://unpkg.com/ionicons@4.4.2/dist/ionicons/svg/ios-airplane.svg',
+ *  'md-airplane': 'https://unpkg.com/ionicons@4.4.2/dist/ionicons/svg/md-airplane.svg',
+ * }
+ * /
+```
 #### startPrefetch()
 `startPrefetch`会对`config`中的`svg`进行预加载!当你调用`svg`的时候将大大提高使用速度。
 

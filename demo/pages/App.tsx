@@ -13,6 +13,7 @@ iconName.forEach((i) => {
   config[i] = `${svgTarget}${i}.svg`;
 })
 Icon.archer.set(config);
+Icon.archer.setThreadNum(100);
 export default class IApp extends React.Component<IAppProps, any> {
   getPercent = () => Math.round(((iconName.length - Icon.archer.prefetchQueue.length) / iconName.length) * 100);
 

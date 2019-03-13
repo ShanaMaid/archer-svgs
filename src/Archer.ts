@@ -21,6 +21,10 @@ class Archer {
     this.config = config;
   }
 
+  add = (config: IConfig) => {
+    this.config = Object.assign({}, this.config, config);
+  }
+
   // 开启预下载  一般配置在onload后
   startPreFetch = async () => {
     if (this.isPrefetch) {
