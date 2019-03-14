@@ -22,6 +22,18 @@ class Archer {
   }
 
   add = (config: IConfig) => {
+    const oldKeys = Object.keys(this.config);
+    const newKeys = Object.keys(config);
+    const repeatKeys: string[] = [];
+    oldKeys.forEach((key) => {
+      if (newKeys.indexOf(key) !== -1) {
+        repeatKeys.push(key);
+      }
+    });
+    if (repeatKeys.length) {
+      const names = repeatKeys.join(', ');
+      throw(new Error(`${names} have been set, please rename!`));
+    }
     this.config = Object.assign({}, this.config, config);
   }
 
