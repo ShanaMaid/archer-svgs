@@ -65,7 +65,7 @@ class Icon extends Component<IIconProps, IIconState> {
     } = this.props;
     return (
       <i
-        className={`archer-icon ${className}`}
+        className={`archer-icon ${className || ''}`}
         dangerouslySetInnerHTML={{__html: this.props.svg || this.state.svgHtml}}
         {...otherProps}
       />
