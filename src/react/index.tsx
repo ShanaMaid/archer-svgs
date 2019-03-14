@@ -13,6 +13,19 @@ export interface IIconProps {
    * 图标svg
    */
   svg?: string;
+  /**
+   * 样式
+   */
+  style?: React.CSSProperties;
+  /**
+   * 附加额外的 class
+   */
+  className?: string;
+  /**
+   * 附加id
+   */
+  id?: string;
+
 }
 
 export interface IIconState {
@@ -47,10 +60,14 @@ class Icon extends Component<IIconProps, IIconState> {
   }
 
   render() {
+    const {
+      type, svg, className, ...otherProps
+    } = this.props;
     return (
       <i
-        className="archer-icon"
+        className={`archer-icon ${className}`}
         dangerouslySetInnerHTML={{__html: this.props.svg || this.state.svgHtml}}
+        {...otherProps}
       />
     );
   }
