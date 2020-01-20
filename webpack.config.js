@@ -21,7 +21,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
   },
-  entry: path.resolve('./demo/entry.tsx'),
+  entry: path.resolve(__dirname, './demo/entry.tsx'),
   output: {
     filename: 'js/build-[hash].js',
     path: path.resolve(__dirname, './docs'),
