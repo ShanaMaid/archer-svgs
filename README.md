@@ -16,7 +16,7 @@
 
 > 如果你觉得这个项目还不错，可以给我一个`star`和`follow`来支持我 😘
 
-## [在线示例](https://blog.shanamaid.top/archer-svgs/)
+## [在线示例](https://shanamaid.github.io/archer-svgs/)
 ## 目录
 * [安装](#安装)
   * [npm](#npm)
